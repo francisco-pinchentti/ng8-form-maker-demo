@@ -6,11 +6,12 @@
 
     <div formArrayName="fields">
 
-        <ng-container *ngFor="let field of fields.controls; let i = index;">
+        <div class="field" *ngFor="let field of fields.controls; let i = index;">
 
             <ng-container [formGroup]="field">
 
                 <pre>Field number is: {{ i }}</pre>
+                <button type="button" (click)="onRemoveField(field)">X</button>
 
                 <label for="name-{{i}}">Field Name</label>
                 <input name="name-{{i}}" type="text" formControlName="name" />
@@ -62,7 +63,7 @@
 
             </ng-container>
 
-        </ng-container>
+        </div>
 
     </div>
 
