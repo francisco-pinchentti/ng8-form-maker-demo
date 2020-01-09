@@ -35,10 +35,10 @@ export class FormMakerComponent implements OnInit {
   private buildNewFieldGroup(): FormGroup {
     const newField = this.fb.group({
       name: ['', Validators.required],
-      fieldType: [''],
-      isRequired: [false],
-      currentValue: [],
-      allowedValues: this.fb.array([]),
+      fieldType: ['', Validators.required],
+      isMandatory: [false],
+      currentValue: [],                       // @todo needs custom validator for some types
+      allowedValues: this.fb.array([]),       // @todo needs custom validator for some types
     });
     return newField;
   }
@@ -81,12 +81,20 @@ export class FormMakerComponent implements OnInit {
     });
   }
 
-  onAddFieldOption(field: FormControl) {
+  onAddFieldOption(field: FormGroup) {
     (<FormArray>field.get('allowedValues')).push(this.buildNewDropdownOption());
   }
 
-  onRemoveFieldOption(field: FormControl, index: number) {
+  onRemoveFieldOption(field: FormGroup, index: number) {
     (<FormArray>field.get('allowedValues')).removeAt(index);
+  }
+
+  onMandatoryFieldChange(field: FormGroup, newValue: boolean) {
+    field.get('isMandatory').patchValue(newValue);
+  }
+
+  get isValid(): boolean {
+    return this.form && this.form.valid;
   }
 
   public get debugForm(): any {
