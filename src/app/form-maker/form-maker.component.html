@@ -1,0 +1,72 @@
+<form [formGroup]="form">
+
+    <input type="text" formControlName="name" />
+
+    <button class="btn--add-field" type="button" (click)="onAddField()">Add new field</button>
+
+    <div formArrayName="fields">
+
+        <ng-container *ngFor="let field of fields.controls; let i = index;">
+
+            <ng-container [formGroup]="field">
+
+                <pre>Field number is: {{ i }}</pre>
+
+                <label for="name-{{i}}">Field Name</label>
+                <input name="name-{{i}}" type="text" formControlName="name" />
+
+                <label for="type-{{i}}">Field Type</label>
+                <select name="type-{{i}}" formControlName="fieldType">
+                    <option value=""></option>
+                    <option *ngFor="let o of allowedFormFieldTypes" [value]="o.id">{{ o.label }}</option>
+                </select>
+
+                <ng-container *ngIf="!!field.get('fieldType').value">
+
+                    <ng-container [ngSwitch]="field.get('fieldType').value">
+
+                        <div *ngSwitchCase="headerFieldTypeId">
+                            <label for="hc-{{i}}">Header content</label>
+                            <input name="hc-{{i}}" type="text" formControlName="currentValue" />
+                        </div>
+
+                        <div *ngSwitchCase="dateFieldTypeId">
+                            <pre>PUT DATE PICKER</pre>
+                        </div>
+
+                        <div *ngSwitchCase="dropdownFieldTypeId">
+                            <label>Drodown</label>
+                            <button type="button" (click)="onAddFieldOption(field)">add option</button>
+
+                            <ul>
+                                <ng-container formArrayName="allowedValues">
+                                    <li *ngFor="let option of field.get('allowedValues').controls; let j = index;">
+                                        <ng-container [formGroup]="option">
+                                            <input type="text" formControlName="optionValue" />
+                                            <button type="button" (click)="onRemoveFieldOption(field, j)">X</button>
+                                        </ng-container>
+                                    </li>
+                                </ng-container>
+                            </ul>
+
+                        </div>
+
+                    </ng-container>
+
+                </ng-container>
+
+                <button class="btn--add-field" type="button" (click)="onAddField(i+1)">Add new field</button>
+
+            </ng-container>
+
+        </ng-container>
+
+    </div>
+
+    <button type="button" (click)="onGenerateForm()">GENERATE</button>
+
+</form>
+
+<pre>
+    {{ debugForm | json }}
+</pre>
