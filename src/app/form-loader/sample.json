@@ -1,0 +1,29 @@
+{
+  "name": "DEMO",
+  "fields": [
+    {
+      "name": "First",
+      "fieldType": "1",
+      "isMandatory": false,
+      "currentValue": "HOLA",
+      "allowedValues": []
+    },
+    {
+      "name": "Second",
+      "fieldType": "3",
+      "isMandatory": true,
+      "currentValue": null,
+      "allowedValues": [
+        {
+          "optionValue": "1"
+        },
+        {
+          "optionValue": "2"
+        },
+        {
+          "optionValue": "3"
+        }
+      ]
+    }
+  ]
+}

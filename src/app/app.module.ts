@@ -4,11 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { FormMakerComponent } from './form-maker/form-maker.component';
+import { FormLoaderComponent } from './form-loader/form-loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormMakerComponent
+    FormMakerComponent,
+    FormLoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,51 @@
+<h1>Form Loader</h1>
+
+<h5>Place JSON</h5>
+<textarea (change)="onJSONUpdate($event.target.value)">
+    {{ formJSON }}
+</textarea>
+
+<ng-container *ngIf="isValidJSON">
+
+    <form [formGroup]="form">
+
+        <h2>{{ form.get('name').value }}</h2>
+
+        <div formArrayName="fields">
+
+            <ng-container *ngFor="let field of fields.controls; let i = index;">
+
+                <ng-container [formGroup]="field">
+
+                    <pre>Field number is: {{ i }} and is named {{ field.get('name').value }}</pre>
+
+                    <ng-container [ngSwitch]="field.get('fieldType').value">
+
+                        <div *ngSwitchCase="headerFieldTypeId">
+                            <h3>{{ field.get('currentValue').value }}</h3>
+                        </div>
+
+                        <div *ngSwitchCase="dateFieldTypeId">
+                            <pre>PUT DATE PICKER</pre>
+                        </div>
+
+                        <div *ngSwitchCase="dropdownFieldTypeId">
+                            <select formControlName="currentValue">
+                                <option *ngFor="let o of field.get('allowedValues').controls" [value]="o.get('optionValue').value">{{ o.get('optionValue').value }}</option>
+                            </select>
+                        </div>
+
+                    </ng-container>
+
+                </ng-container>
+
+            </ng-container>
+
+        </div>
+
+        <button type="button" (click)="onSubmit()" [disabled]="!isValid">Submit</button>
+
+    </form>
+
+
+</ng-container>

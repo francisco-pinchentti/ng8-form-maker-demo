@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
-
-interface CAFormFieldTypes {
-  id: number;
-  label: string;
-}
-
-const CAFormFieldTypeHeader = { id: 1, label: 'Header'};
-const CAFormFieldTypeDate = { id: 2, label: 'Date'};
-const CAFormFieldTypeDropdown = { id: 3, label: 'Dropdown'};
+import { CAFormFieldTypes, CAFormFieldTypeHeader, CAFormFieldTypeDate, CAFormFieldTypeDropdown } from '../models/CAFormFieldTypes';
 
 @Component({
   selector: 'app-form-maker',
